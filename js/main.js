@@ -53,12 +53,13 @@ function getData(mymap){
 				//then load the circle marker to the geojson layer by creating a function to load the geogrpahy of these markers
 				pointToLayer: function(feature, latlng){
 					return L.circleMarker(latlng,geojsonMarkerOptions);
-				}
+				},
+				onEachFeature: onEachFeature
 			}).addTo(mymap);
 			//create another geojson layer to add the attribute infomration to the popup marker to thelayer and then to the mpa
-			L.geoJson(response, {
+			/*L.geoJson(response, {
                 onEachFeature: onEachFeature
-            }).addTo(mymap);
+            }).addTo(mymap);*/
 		}
 	});
 };
