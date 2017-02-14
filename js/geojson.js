@@ -4,7 +4,7 @@
 /*initialize a map with a set of view extent and zoom levels*/
 
 function createMap(){
-    var map=L.map('map',{
+    var map=L.map('mapid',{
     center:[20,0],
     zoom:2
 });
