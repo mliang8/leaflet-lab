@@ -64,45 +64,62 @@ function onEachFeature(feature, layer){
 	});
 };*/
 
-//create a function for adding the proportional symbols on the map with dataset and the map itself as paarameters
-function createPropSymbols(data,mymap){
-	//define a variable for marker stylizing
-	var geojsonMarkerOptions={
-		radius: 10,
+
+
+
+function pointToLayer(feature, latlng, attributes){
+	var attribute= "pop_1970(thousands)";
+	var options={
+		//radius: 10,
 		fillColor:"#85C1E9",
 		color:"#3498DB",
 		weight:2,
 		opacity:1,
 		fillOpacity:0.85
 	};
-	//define a variable for the attribute to visualize with the proportional symbols on map, which is the population of 1970 in thousand 
-	var attribute= "pop_1970(thousands)";
+	var attValue=Number(feature.properties[attribute]);
+	options.radius= calcPropRadius(attValue);
+	var layer=L.circleMarker(latlng,options);
+	var panelContent="<p><b>City: </b>"+feature.properties.city+"</p>";
+	var year=attribute.split("_")[1].split("(")[0];
+
+	panelContent+="<p><b>Population in "+year+": </b>"+feature.properties[attribute]+" thousand</p>";
+	var popupContent=feature.properties.city;
+	layer.bindPopup(popupContent,{
+		offset: new L.Point(0, -options.radius),
+		closeButton: false
+	});
+	layer.on({
+		mouseover: function(){
+			this.openPopup();
+		},
+		mouseout: function(){
+			this.closePopup();
+		},
+		click: function(){
+			$("#panel").html(panelContent);
+		}
+	});
+	//create the stylized circle markers at each city's locations 
+	return layer;
+		
+	var attribute= attributes[0];
+	console.log(attribute);
+};
+//create a function for adding the proportional symbols on the map with dataset and the map itself as parameters
+function createPropSymbols(data,mymap, attributes){
+	
 	//create a geojson layer on map and add to map
 	L.geoJson(data,{
 		//internally call the pointToLayer function to spawn the data points' lat and lon values to the geojson layer created
-		pointToLayer: function (feature, latlng){
-			//define a variable to store the attribute values which is 1970 population of each city and cast the value to a numeric value
-			var attValue=Number(feature.properties[attribute]);
-			//console.log(feature.properties, attValue);
-			//acess the radius of each marker defined previously and change it based on pop size by calling the calcPropRadius function 
-				//with the attribute value, whcih is the 1970 pop size
-			geojsonMarkerOptions.radius=calcPropRadius(attValue);
-			//create the stylized circle markers at each city's locations 
-			return L.circleMarker(latlng, geojsonMarkerOptions);
+		pointToLayer: function(feature,latlng){
+			return pointToLayer(feature,latlng,attributes);
 		}
-	}).addTo(mymap);
+	}).addTo(mymap);	
 };
-//create a function to import data from the geojson file
-function getData(mymap){
-	//using ajax to load in the data  
-	$.ajax("data/cities_pop.geojson",{
-		dataType:"json",
-		//call the function to create proportional symbol marker when the data is loaded in
-		success:function (response){
-			createPropSymbols(response, mymap);
-		}
-	});
-};
+
+
+
 //create a function to calculate the radius of markers based on attValue which is the population size
 function calcPropRadius(attValue){
 	//define a variable scale factor to scale down all the marker symbols based on their numerical values
@@ -116,10 +133,85 @@ function calcPropRadius(attValue){
 
 };
 
+function createSequenceControls(mymap){
+	$('#panel').append('<input class="range-slider" type="range">');
+	$('.range-slider').attr({
+		max: 6,
+		min:0,
+		value: 0,
+		step: 1
+	});
+	$('#panel').append('<button class="skip" id="reverse">Reverse</button>');
+	$('#panel').append('<button class="skip" id="forward">Skip</button>');
+	$('#reverse').html('<img src="img/back.png">');
+	$('#forward').html('<img src="img/for.png">');
+	$('.skip').click(function(){
+		var index=$('.range-slider').val();
+		if ($(this).attr('id')=='forward'){
+			index++;
+			index=index>6 ? 0 : index;
+		} else if ($(this).attr('id')=='reverse'){
+			index--;
+			index=index<0 ? 6 : index;
+		};
 
+		$('.range-slider').val(index);
+		updatePropSymbols(mymap,attributes[index]);
+	});	
 
+};
 
+function updatePropSymbols(mymap, attribute){
+	map.eachLayer(function(layer){
+		if (layer.feature && layer.feature.properties[attribute]){
+			var props= layer.feature.properties;
+			var radius=calcPropRadius(props[attribute]);
+			layer.setRadius(radius);
+			var popupContent="<p><b>City:</b>"+props.city+"</p>";
+			var year=attribute.split("_")[1].split("(")[0];
+			popupContent+="<p><b>Population in "+year+": </b>"+feature.properties[attribute]+" thousand</p>";
+			layer.bindPopup(popupContent,{
+				offset: new L.Point(0,-radius)
+			});
+		};
+	});
+};
 
+//create a function to import data from the geojson file
+function getData(mymap){
+	//using ajax to load in the data  
+	$.ajax("data/cities_pop.geojson",{
+		dataType:"json",
+		//call the function to create proportional symbol marker when the data is loaded in
+		success:function (response){
+			//create an attributes array
+			var attributes=processData(response);
+			createPropSymbols(response, mymap);
+			createSequenceControls(mymap);
+		}
+	});
+};
+
+function processData(data){
+    //empty array to hold attributes
+    var attributes = [];
+
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //only take attributes with population values
+        if (attribute.indexOf("Pop") > -1){
+            attributes.push(attribute);
+        };
+    };
+
+    //check result
+    console.log(attributes);
+
+    return attributes;
+};
 
 
 
