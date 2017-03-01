@@ -1,0 +1,16 @@
+city,statistical concept,country,popchange_2000-2016(percentage),popchange_2016-2030(percentage),latitude,longitude
+Busan,city proper,South Korea,-0.7,0.1,35.1796,129.08
+Tokyo,metropolitan area,Japan,0.6,-0.2,35.6895,139.69
+Beijiing,Urban Agglomeration,China,4.6,1.9,39.9,116.41
+Dongguan,Urban Agglomeration,China,4.5,1.1,23.0207,113.75
+Guilin,Urban Agglomeration,China,1.7,1.5,25.2345,110.18
+Kabul,city proper,Afghanistan,4.4,3.8,34.5553,69.2075
+Kathmandu,city proper,Nepal,4,3,27.7172,85.32
+Singapore,Urban Agglomeration,Singapore,2.4,1,1.3521,103.82
+Istanbul,Urban Agglomeration,Turkey,3.1,1.1,41.0082,28.98
+Sofia,Urban Agglomeration,Bulgaria,0.5,0,42.6977,23.32
+Copenhagen,Urban Agglomeration,Denmark,1.1,0.9,55.6761,12.57
+Manchester,Urban Agglomeration,United Kingdom,0.8,0.8,53.4808,-2.24
+Naples,Metropolitan area,Italy,-0.1,0.1,40.8518,14.27
+Guadalajara,Metropolitan area,Mexico,1.7,1.2,20.6597,-103.35
+Chicago,Urban Agglomeration,United States of America,0.3,0.6,41.8781,-87.624421

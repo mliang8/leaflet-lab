@@ -5,17 +5,22 @@
 	width: 100%;
 	display: inline-block;
 }
-#panel{
+/*#panel{
 	width: 26%;
 	padding: 20px;
 	display: inline-block;
 	vertical-align: top;
 	text-align: center;
 	line-height: 42px;
-}
-.range-slider{
-	width: 50%;
+}*/
+#range-slider{
+	width: 80%;
+	
 
+}
+#panel-content{
+	
+	display: inline-block;
 }
 #forward{
 	float: right;
@@ -25,6 +30,7 @@
 }
 .leaflet-popup-content p{
 	margin: 0.2em 0;
+	display: inline-block;
 	text-align: right;
 
 }

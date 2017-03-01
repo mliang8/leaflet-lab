@@ -1,0 +1,260 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Busan",
+        "statistical concept": "city proper",
+        "country": "South Korea",
+        "popchange_2000-2016(percentage)": -0.7,
+        "popchange_2016-2030(percentage)": 0.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.08,
+          35.1796
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Tokyo",
+        "statistical concept": "metropolitan area",
+        "country": "Japan",
+        "popchange_2000-2016(percentage)": 0.6,
+        "popchange_2016-2030(percentage)": -0.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.69,
+          35.6895
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Beijiing",
+        "statistical concept": "Urban Agglomeration",
+        "country": "China",
+        "popchange_2000-2016(percentage)": 4.6,
+        "popchange_2016-2030(percentage)": 1.9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          116.41,
+          39.9
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Dongguan",
+        "statistical concept": "Urban Agglomeration",
+        "country": "China",
+        "popchange_2000-2016(percentage)": 4.5,
+        "popchange_2016-2030(percentage)": 1.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          113.75,
+          23.0207
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Guilin",
+        "statistical concept": "Urban Agglomeration",
+        "country": "China",
+        "popchange_2000-2016(percentage)": 1.7,
+        "popchange_2016-2030(percentage)": 1.5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.18,
+          25.2345
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Kabul",
+        "statistical concept": "city proper",
+        "country": "Afghanistan",
+        "popchange_2000-2016(percentage)": 4.4,
+        "popchange_2016-2030(percentage)": 3.8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.2075,
+          34.5553
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Kathmandu",
+        "statistical concept": "city proper",
+        "country": "Nepal",
+        "popchange_2000-2016(percentage)": 4,
+        "popchange_2016-2030(percentage)": 3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          85.32,
+          27.7172
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Singapore",
+        "statistical concept": "Urban Agglomeration",
+        "country": "Singapore",
+        "popchange_2000-2016(percentage)": 2.4,
+        "popchange_2016-2030(percentage)": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.82,
+          1.3521
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Istanbul",
+        "statistical concept": "Urban Agglomeration",
+        "country": "Turkey",
+        "popchange_2000-2016(percentage)": 3.1,
+        "popchange_2016-2030(percentage)": 1.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.98,
+          41.0082
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Sofia",
+        "statistical concept": "Urban Agglomeration",
+        "country": "Bulgaria",
+        "popchange_2000-2016(percentage)": 0.5,
+        "popchange_2016-2030(percentage)": 0
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.32,
+          42.6977
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Copenhagen",
+        "statistical concept": "Urban Agglomeration",
+        "country": "Denmark",
+        "popchange_2000-2016(percentage)": 1.1,
+        "popchange_2016-2030(percentage)": 0.9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.57,
+          55.6761
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Manchester",
+        "statistical concept": "Urban Agglomeration",
+        "country": "United Kingdom",
+        "popchange_2000-2016(percentage)": 0.8,
+        "popchange_2016-2030(percentage)": 0.8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.24,
+          53.4808
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Naples",
+        "statistical concept": "Metropolitan area",
+        "country": "Italy",
+        "popchange_2000-2016(percentage)": -0.1,
+        "popchange_2016-2030(percentage)": 0.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.27,
+          40.8518
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Guadalajara",
+        "statistical concept": "Metropolitan area",
+        "country": "Mexico",
+        "popchange_2000-2016(percentage)": 1.7,
+        "popchange_2016-2030(percentage)": 1.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -103.35,
+          20.6597
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "city": "Chicago",
+        "statistical concept": "Urban Agglomeration",
+        "country": "United States of America",
+        "popchange_2000-2016(percentage)": 0.3,
+        "popchange_2016-2030(percentage)": 0.6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.624421,
+          41.8781
+        ]
+      }
+    }
+  ]
+}
