@@ -6,7 +6,7 @@ function createMap(){
 	//create a mymap variable within the function and connect to the classid in html
 	var mymap=L.map('mapid',{
 		center:[39.9042,116.4074], //specify a map center location when load
-		zoom:10 //specify the zoom levels
+		zoom:1 //specify the zoom levels
 	});
 	//add tilestyle from the opensource website and add to the map
 	L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
@@ -63,12 +63,26 @@ function onEachFeature(feature, layer){
 /*		}
 	});
 };*/
+//create a function for adding the proportional symbols on the map with dataset and the map itself as parameters
+function createPropSymbols(data,mymap, attributes){
+	
+	//create a geojson layer on map and add to map
+	L.geoJson(data,{
+		//internally call the pointToLayer function to spawn the data points' lat and lon values to the geojson layer created
+		pointToLayer: function(feature,latlng){
+			return pointToLayer(feature,latlng,attributes);
+		}
+	}).addTo(mymap);	
+	console.log(attributes);
+};
 
 
+//function converting markers to circle markers
 
 
 function pointToLayer(feature, latlng, attributes){
-	var attribute= "pop_1970(thousands)";
+	//var attribute= "pop_1970(thousands)";
+	var attribute=attributes[0];
 	var options={
 		//radius: 10,
 		fillColor:"#85C1E9",
@@ -103,20 +117,11 @@ function pointToLayer(feature, latlng, attributes){
 	//create the stylized circle markers at each city's locations 
 	return layer;
 		
-	var attribute= attributes[0];
+	//var attribute= attributes[0];
 	console.log(attribute);
 };
-//create a function for adding the proportional symbols on the map with dataset and the map itself as parameters
-function createPropSymbols(data,mymap, attributes){
-	
-	//create a geojson layer on map and add to map
-	L.geoJson(data,{
-		//internally call the pointToLayer function to spawn the data points' lat and lon values to the geojson layer created
-		pointToLayer: function(feature,latlng){
-			return pointToLayer(feature,latlng,attributes);
-		}
-	}).addTo(mymap);	
-};
+
+
 
 
 
@@ -133,7 +138,7 @@ function calcPropRadius(attValue){
 
 };
 
-function createSequenceControls(mymap){
+function createSequenceControls(mymap, attributes){
 	$('#panel').append('<input class="range-slider" type="range">');
 	$('.range-slider').attr({
 		max: 6,
@@ -157,19 +162,20 @@ function createSequenceControls(mymap){
 
 		$('.range-slider').val(index);
 		updatePropSymbols(mymap,attributes[index]);
+		
 	});	
 
 };
 
 function updatePropSymbols(mymap, attribute){
-	map.eachLayer(function(layer){
+	mymap.eachLayer(function(layer){
 		if (layer.feature && layer.feature.properties[attribute]){
 			var props= layer.feature.properties;
 			var radius=calcPropRadius(props[attribute]);
 			layer.setRadius(radius);
 			var popupContent="<p><b>City:</b>"+props.city+"</p>";
 			var year=attribute.split("_")[1].split("(")[0];
-			popupContent+="<p><b>Population in "+year+": </b>"+feature.properties[attribute]+" thousand</p>";
+			popupContent+="<p><b>Population in "+year+": </b>"+layer.feature.properties[attribute]+" thousand</p>";
 			layer.bindPopup(popupContent,{
 				offset: new L.Point(0,-radius)
 			});
@@ -186,8 +192,9 @@ function getData(mymap){
 		success:function (response){
 			//create an attributes array
 			var attributes=processData(response);
-			createPropSymbols(response, mymap);
-			createSequenceControls(mymap);
+			createPropSymbols(response, mymap, attributes);
+			createSequenceControls(mymap,attributes);
+
 		}
 	});
 };
@@ -202,7 +209,7 @@ function processData(data){
     //push each attribute name into attributes array
     for (var attribute in properties){
         //only take attributes with population values
-        if (attribute.indexOf("Pop") > -1){
+        if (attribute.indexOf("pop") > -1){
             attributes.push(attribute);
         };
     };
@@ -212,28 +219,6 @@ function processData(data){
 
     return attributes;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //call the createMap function when the document has loaded
 $(document).ready(createMap);
