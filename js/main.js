@@ -159,7 +159,7 @@ function pointToLayer(feature, latlng, attributes){
 		//return the layer with circle markers
 		return layer;
 		//if the first indexed attribute macthed with the overlay layer's attribute, follow the following set of styling 
-	} else if(attribute=="popchange_2000-2016 (percentage)"){
+	} else if(attribute=="popchange_2000-2016(percentage)"){
 		//for the circle markers in the overlay layer , define style options
 		var options={
 			//radius: 10,
