@@ -1,23 +1,35 @@
 /* Stylesheet by Mengyu Liang, 2016 */
 
 #mapid {
-	height:500px;
+	height:720px;
 	width: 100%;
 	display: inline-block;
+
+	
 }
-#panel{
-	width: 26%;
-	padding: 20px;
+/*#panel{
+	width: 0%;
+	padding: 0px;
 	display: inline-block;
 	vertical-align: top;
 	text-align: center;
-	line-height: 42px;
+	line-height: 0px;
+}*/
+#ac-wrapper {
+	height: 150px;
+	font-family: "Helvetica";
+	font-size: 16px;
+	color: #373c42;
+	padding-top: 3px;
+	text-align: center;
+	background-color: #c7c7c7;
 }
 #range-slider{
-	width: 80%;	
+	width: 200px;	
 
 }
 #panel-content{
+	font-family: "Avenir";
 	
 	display: inline-block;
 }
@@ -28,8 +40,52 @@
 	float:left;
 }
 .leaflet-popup-content p{
+	font-family: "Times";
+	font-size: 15px;
 	margin: 0.2em 0;
 	display: inline-block;
 	text-align: right;
+
+}
+.popupContent{
+	font-family: "Times";
+}
+
+.sequence-control-container {
+	width: 350px;
+	height: 30px;
+	padding: 5px;
+	line-height: 45px;
+	text-align: center;
+	background-color: rgba(184, 201, 214, .75);
+	opacity: 50%;
+
+}
+.legend-control-container{
+	font-family: "Helvetica";
+	font-size: 15px;
+
+	width: 320px;
+	height: 215px;
+	padding-bottom: 3px;
+	line-height: 25px;
+	text-align: center;
+	background-color: rgba(184, 201, 214, .55);
+	opacity: 40%;	
+}
+
+.leaflet-control-layers{
+	font-family: "Helvetica";
+	font-size: 10px;
+	padding-bottom: 5px;
+
+}
+
+.attribute-legend .max-text{
+	position: absolute;
+	left:100px;
+	top:40px;
+	padding-bottom: 10px;
+
 
 }

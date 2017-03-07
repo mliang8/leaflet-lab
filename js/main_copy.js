@@ -25,8 +25,7 @@ function onEachFeature(feature, layer){
         //loop to add feature property names and values to html string
         for (var property in feature.properties){
             popupContent += "<p>" + property + ": " + feature.properties[property] + "</p>";
-            console.log(property);
-        };
+        }
         //bind the attribute information to this geojson layer
         layer.bindPopup(popupContent);
     };
@@ -91,12 +90,12 @@ function processData(data){
 };*/
 function createPopup(properties, attribute, layer, radius){
     //add city to popup content string
-    var popupContent = "<p><b>" + properties.city + " </b></p><br>";
+    var popupContent = "<p><b>City:</b> " + properties.city + "</p>";
 
     //add formatted attribute to panel content string
     var year = attribute.split("_")[1].split("(")[0];
-    //var panelContent="<p><b>"+properties.city+"</b></p>";
-    popupContent += " <p>population in <b> " + year + "</b> is <b> " + properties[attribute] + "</b> thousand</p>";
+    var panelContent="<p><b>City: </b>"+properties.city+"</p>";
+    popupContent += "<p><b>Population in " + year + ":</b> " + properties[attribute] + " thousand</p>";
 
     //replace the layer popup
     layer.bindPopup(popupContent, {
@@ -212,7 +211,9 @@ function pointToLayer(feature, latlng, attributes){
 		//style the symbols based on the style options above and the radius is based in calling the radius calculating function and 
 			//pass in a scale factor of 230
 		var attValue=Number(feature.properties[attribute]);
-				//if the attribute values are negative, follow the alternative stylings to distinguish the fetaures
+				options.radius= calcPropRadius(attValue,200);
+				//console.log(attValue);
+		//if the attribute values are negative, follow the alternative stylings to distinguish the fetaures
 		if (attValue<0){
 			var options={
 			//radius: 10,
@@ -222,23 +223,19 @@ function pointToLayer(feature, latlng, attributes){
 			opacity:0.85,
 			fillOpacity:0.85
 			};
-		//createPopup(feature.properties, attribute, layer, options.radius);
 		};
-		options.radius= calcPropRadius(attValue,230);
-				//console.log(attValue);
-
 		//define a layer to include the instantiated circle marker objects  
 		var layer=L.circleMarker(latlng,options);
 		//createPopup(feature.properties, attribute, layer, options.radius);
 		//define a variable to store strings and values to include as the pannel's content
-		var panelContent="<p><b>"+feature.properties.city+"</b></p>";
+		var panelContent="<p><b>City: </b>"+feature.properties.city+"</p>";
 		//define another variable to include the time infomrtaion of the data
 		var year=attribute.split("_")[1].split("(")[0];
 		//concatinate the time information to the panelcontent 
 		panelContent+="<p><b>Percentage of population for "+year+": </b>"+feature.properties[attribute]+" %</p>";
 		console.log(panelContent);
 		//define a varibale to include the city names to include in the popup 
-		var popupContent=panelContent;
+		var popupContent=feature.properties.city;
 		//bing the popuoContent which contains city names to the layer with cricle marker obejcts
 		layer.bindPopup(popupContent,{
 			//add an offeset so that the popup based on the fetaure's radius would not obscure the feature
@@ -351,23 +348,21 @@ function createLegend(mymap, attributes){
             $(container).append('<div id="temporal-legend">');
 
             //Step 1: start attribute legend svg string
-            var svg = '<svg id="attribute-legend" width="300px" height="250px">';
-            //var circles=getCircleValues(mymap,attributes[0]);
+            var svg = '<svg id="attribute-legend" width="160px" height="180px">';
+            var circles=getCircleValues(mymap,attributes[0]);
             //array of circle names to base loop on
-        	var circles = {
+        	/*var circles = {
         		max: 20,
         		mean:40,
         		min:60
-        	};
+        	};*/
 
         	//Step 2: loop to add each circle and text to svg string
         	for (var circle in circles){
             //circle string
             	svg += '<circle class="legend-circle" id="' + circle + 
             	'" fill="#2E86C1" fill-opacity="0.55" stroke="#2471A3" cx="80"/>';
-            	svg+= '<text id="'+circle+'-text" x="165" y="' +(circles[circle]+55)+'"></text>';
-
-            	console.log(circles[circle]);
+            	svg+= '<text id="'+circle+'-text" x="40" y="100"></text>';
         	};
         	//close svg string
         	svg += "</svg>";
@@ -380,7 +375,7 @@ function createLegend(mymap, attributes){
     });
 
     mymap.addControl(new LegendControl());
-    //console.log('hello world');
+    console.log('hello world');
     updateLegend(mymap, attributes[0]);
 };
 
@@ -407,7 +402,7 @@ function getCircleValues(mymap,attribute){
 };
 function updateLegend(mymap,attribute){
 	var year= attribute.split("_")[1].split("(")[0];
-	var content="<p><b>Population in "+year+"</b></p>";
+	var content="Population in "+year;
 	$('#temporal-legend').html(content);
 	var circleValues=getCircleValues(mymap,attribute);
 	console.log(circleValues);
@@ -416,11 +411,10 @@ function updateLegend(mymap,attribute){
 		var radius=calcPropRadius(circleValues[key],0.5);
 		console.log(radius);
 		$('#'+key).attr({
-			cy: 158-radius,
+			cy: 165-radius,
 			r:radius
 		});
 		$('#'+key+'-text').text(Math.round(circleValues[key]*100)/100+" thousand");
-		//$('#'+key+'-text').offset(new L.Point(0,-radius));
 	};
 };
 
@@ -454,21 +448,7 @@ function updatePropSymbols(mymap, attribute){
 		};
 	});
 };
-function PopUp(hideOrshow) {
-    if (hideOrshow == 'hide') document.getElementById('ac-wrapper').style.display = "none";
-    else document.getElementById('ac-wrapper').removeAttribute('style');
-};
-$(document).ready(function(){
-   setTimeout(function(){
-      PopUp();
-   },50); // 5000 to load it after 5 seconds from page load
-});
 
 
 //call the createMap function when the document has loaded
 $(document).ready(createMap);
-	
-
-
-
-

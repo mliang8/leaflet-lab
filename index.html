@@ -15,20 +15,33 @@
 
 	<body>
 
-		<div id="mapid" ></div>
-		<div id="panel">
-			<div id="range-slider"></div>
-			<div id="panel-content"></div>
+		<!--svg id="Layer_1" width="180px" height="180px">
+			<circle fill="#CB3626" fill-opacity="0.65" stroke="#F39C12" stroke-miterlimit="10" cs="90.001" r="89.5"/>
+		</svg-->
+
+
+		<div id="ac-wrapper" style='display:none'>
+		    <div id="popup">
+		        <center>
+		             <h3>This simple map helps you explore the population changes </h3>
+		             <h3>in several large and mid-sized cities across seven different timestamps.</h3>    
+		            <input type="submit" name="submit" value="Start!" onClick="PopUp('hide')" />
+		        </center>
+		    </div>
 		</div>
+		<div id="mapid"></div>
+
+				<!--div id="panel"-->
+		<div id="range-slider"></div>
+			
+		<div id="panel-content"></div>
+		<!--/div-->
 		<!--Example 1 line 14-->
 
     <!--<div id="mydiv">
         Hello World!
     </div>-->
-	
 
-		
-		
 			<script type="text/javascript" src="lib/leaflet/leaflet-src.js"></script>
 			<script type="text/javascript" src="lib/jquery.js"></script>
 			<script type="text/javascript" src="js/main.js"></script>

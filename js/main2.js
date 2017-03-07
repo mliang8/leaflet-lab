@@ -60,13 +60,21 @@ function createPropSymbols(data1,data2,mymap, attributes1, attributes2){
 	//console.log(attributes);
 };
 
+function createPopup(properties,attribute,layer, radius){
+	var popupContent="<p><b>City:</b>"+properties.city+"</p>";
+	var year=attValue.split("_")[1].split("(")[0];
+	popupContent+="<p><b>Population in "+year+": </b>"+feature.properties[attribute]+" thousand</p>";
+	layer.bindPopup(popupContent,{
+		offset:new L.Point(0.-radius)
+	});
+	//console.log(popupContent);
 
+};
 //function converting markers to circle markers
-
-
 function pointToLayer(feature, latlng, attributes){
+	createPopup(feature.properties,attribute,layer,options.radius);
 	//var attribute= "pop_1970(thousands)";
-	var attribute=attributes[0];
+	//var attribute=attributes[0];
 	if (attribute=="pop_1970(thousands)"){
 		var options={
 			//radius: 10,
@@ -78,7 +86,7 @@ function pointToLayer(feature, latlng, attributes){
 		};
 		var attValue=Number(feature.properties[attribute]);
 		options.radius= calcPropRadius(attValue,0.5);
-		var layer=L.circleMarker(latlng,options);
+		/*var layer=L.circleMarker(latlng,options);
 		var panelContent="<p><b>City: </b>"+feature.properties.city+"</p>";
 		var year=attribute.split("_")[1].split("(")[0];
 
@@ -87,7 +95,8 @@ function pointToLayer(feature, latlng, attributes){
 		layer.bindPopup(popupContent,{
 			offset: new L.Point(0, -options.radius),
 			closeButton: false
-		});
+		});*/
+		
 		layer.on({
 			mouseover: function(){
 				this.openPopup();
@@ -198,15 +207,16 @@ function createSequenceControls(mymap, attributes){
 function updatePropSymbols(mymap, attribute){
 	mymap.eachLayer(function(layer){
 		if (layer.feature && layer.feature.properties[attribute]){
-			var props= layer.feature.properties;
+			createPopup(props,attribute,layer,radius);
+			//var props= layer.feature.properties;
 			var radius=calcPropRadius(props[attribute],0.5);
 			console.log(props, attribute,radius);
 			layer.setRadius(radius);
-			var popupContent="<p><b>City:</b>"+props.city+"</p>";
-			var year=attribute.split("_")[1].split("(")[0];
-			popupContent+="<p><b>Population in "+year+": </b>"+layer.feature.properties[attribute]+" thousand</p>";
-			layer.bindPopup(popupContent,{
-				offset: new L.Point(0,-radius)
+			//var popupContent="<p><b>City:</b>"+props.city+"</p>";
+			//var year=attribute.split("_")[1].split("(")[0];
+			//popupContent+="<p><b>Population in "+year+": </b>"+layer.feature.properties[attribute]+" thousand</p>";
+			//layer.bindPopup(popupContent,{
+			//	offset: new L.Point(0,-radius)
 			});
 		};
 	});
