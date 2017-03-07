@@ -1,5 +1,10 @@
 //Mengyu Liang
-//Module 5 B operators
+//Module 6 Finished lab 6
+//This lab creates a proportional symbol map of population chnage through time in several imaportant cities all
+	//over the world; with an overlay for percetange of population hcnage, users could identify the popluation change 
+	//pattern more easily, i.e. to identify the cities with population growth and decay. 
+	//If with more help, I would definitly create an addiitonal attribute legend that display as the overlay turns on
+	//and also style to attribute legend's text more. 
 
 //initialize a function to create a map 
 function createMap(){
@@ -89,6 +94,7 @@ function processData(data){
         });
     };
 };*/
+//a function to create the popup content and style the conteent which can be called later to avoid duplications
 function createPopup(properties, attribute, layer, radius){
     //add city to popup content string
     var popupContent = "<p><b>" + properties.city + " </b></p><br>";
@@ -235,7 +241,7 @@ function pointToLayer(feature, latlng, attributes){
 		//define another variable to include the time infomrtaion of the data
 		var year=attribute.split("_")[1].split("(")[0];
 		//concatinate the time information to the panelcontent 
-		panelContent+="<p><b>Percentage of population for "+year+": </b>"+feature.properties[attribute]+" %</p>";
+		panelContent+="<p><b>Percentage</b> of population for<b> "+year+": </b><b>"+feature.properties[attribute]+" %</b></p>";
 		console.log(panelContent);
 		//define a varibale to include the city names to include in the popup 
 		var popupContent=panelContent;
@@ -336,7 +342,7 @@ function createSequenceControls(mymap, attributes){
 		
 	});	
 };
-	
+//this function creates a temporal and an attribute legend
 function createLegend(mymap, attributes){
     var LegendControl = L.Control.extend({
         options: {
@@ -360,11 +366,12 @@ function createLegend(mymap, attributes){
         		min:60
         	};
 
-        	//Step 2: loop to add each circle and text to svg string
+        	// loop to add each circle and text to svg string
         	for (var circle in circles){
-            //circle string
+                //circle svg string describing class and styles and location
             	svg += '<circle class="legend-circle" id="' + circle + 
             	'" fill="#2E86C1" fill-opacity="0.55" stroke="#2471A3" cx="80"/>';
+            	//text string includes the location 
             	svg+= '<text id="'+circle+'-text" x="175" y="' +(circles[circle]+55)+'"></text>';
 
             	console.log(circles[circle]);
@@ -374,7 +381,7 @@ function createLegend(mymap, attributes){
         	console.log(svg);
             //add attribute legend svg to container
             $(container).append(svg);
-
+            //return the container with temporal and attribute legends
             return container;
         }
     });
@@ -383,21 +390,27 @@ function createLegend(mymap, attributes){
     //console.log('hello world');
     updateLegend(mymap, attributes[0]);
 };
-
+//calculates the max mean and min values for a given attribute
 function getCircleValues(mymap,attribute){
+	//start with min at highest possiable and max at lowest possiable
 	var min=Infinity,
 		max= -Infinity;
+	//attch this function to set the min and ax for each layer on mymap
 	mymap.eachLayer(function(layer){
+		//accss the attribute value
 		if (layer.feature){
 			var attributeValue=Number(layer.feature.properties[attribute]);
+			//test to find the max
 			if (attributeValue<min){
 				min=attributeValue;
 			};
+			//test to find the mean
 			if (attributeValue>max){
 				max=attributeValue;
 			};
 		};
 	});
+	//set the mean value from max and min
 	var mean=(max+min)/2;
 	return{
 		max: max,
@@ -405,16 +418,23 @@ function getCircleValues(mymap,attribute){
 		min: min
 	};
 };
+//update the ledgen with new attribute value
 function updateLegend(mymap,attribute){
+	//create legend title from the attribute
 	var year= attribute.split("_")[1].split("(")[0];
 	var content="<p><b>Population in "+year+"</b></p>";
+	//replace legend content for the temporal legend
 	$('#temporal-legend').html(content);
+	//get the max min and mean values as obejct store  in circlValue
 	var circleValues=getCircleValues(mymap,attribute);
 	console.log(circleValues);
+	//loop thorugh all threes values stored via keys
 	for (var key in circleValues){
 		console.log(circleValues[key]);
+		//set the legend circles' radius using the values accssable through keys
 		var radius=calcPropRadius(circleValues[key],0.5);
 		console.log(radius);
+		//assign a vertical location and radius to the circles in attribute legend
 		$('#'+key).attr({
 			cy: 158-radius,
 			r:radius
@@ -454,14 +474,16 @@ function updatePropSymbols(mymap, attribute){
 		};
 	});
 };
+//to open up a pop up window when the page load with the opations to show the content ot to hide it
 function PopUp(hideOrshow) {
     if (hideOrshow == 'hide') document.getElementById('ac-wrapper').style.display = "none";
     else document.getElementById('ac-wrapper').removeAttribute('style');
 };
+//after the document loaded, call the popup funciton to display the pop up
 $(document).ready(function(){
    setTimeout(function(){
       PopUp();
-   },50); // 5000 to load it after 5 seconds from page load
+   },50); // to load it after slightly later from page load
 });
 
 

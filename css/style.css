@@ -1,5 +1,5 @@
 /* Stylesheet by Mengyu Liang, 2016 */
-
+/*style the map*/
 #mapid {
 	height:720px;
 	width: 100%;
@@ -15,6 +15,7 @@
 	text-align: center;
 	line-height: 0px;
 }*/
+/*style the popup window when the page was loaded in*/
 #ac-wrapper {
 	height: 150px;
 	font-family: "Helvetica";
@@ -24,33 +25,32 @@
 	text-align: center;
 	background-color: #c7c7c7;
 }
+/*style th erange slider*/
 #range-slider{
 	width: 200px;	
 
 }
-#panel-content{
-	font-family: "Avenir";
-	
-	display: inline-block;
-}
+
+/*style the location of the forward botton*/
 #forward{
 	float: right;
 }
+/*style the location of the reverse botton*/
 #reverse{
 	float:left;
 }
+/*style the popupContent text*/
 .leaflet-popup-content p{
-	font-family: "Times";
+	font-family: "Helvetica";
 	font-size: 15px;
 	margin: 0.2em 0;
 	display: inline-block;
 	text-align: right;
 
 }
-.popupContent{
-	font-family: "Times";
-}
 
+
+/*style the sequence control slider and the container*/
 .sequence-control-container {
 	width: 350px;
 	height: 30px;
@@ -61,6 +61,7 @@
 	opacity: 50%;
 
 }
+/*style the temporal and attribte legend and their container*/
 .legend-control-container{
 	font-family: "Helvetica";
 	font-size: 15px;
@@ -73,19 +74,11 @@
 	background-color: rgba(184, 201, 214, .55);
 	opacity: 40%;	
 }
-
+/*style the overlay control*/
 .leaflet-control-layers{
 	font-family: "Helvetica";
-	font-size: 10px;
+	font-size: 15px;
 	padding-bottom: 5px;
 
 }
 
-.attribute-legend .max-text{
-	position: absolute;
-	left:100px;
-	top:40px;
-	padding-bottom: 10px;
-
-
-}
