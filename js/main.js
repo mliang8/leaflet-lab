@@ -365,7 +365,7 @@ function createLegend(mymap, attributes){
             //circle string
             	svg += '<circle class="legend-circle" id="' + circle + 
             	'" fill="#2E86C1" fill-opacity="0.55" stroke="#2471A3" cx="80"/>';
-            	svg+= '<text id="'+circle+'-text" x="165" y="' +(circles[circle]+55)+'"></text>';
+            	svg+= '<text id="'+circle+'-text" x="175" y="' +(circles[circle]+55)+'"></text>';
 
             	console.log(circles[circle]);
         	};
