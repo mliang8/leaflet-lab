@@ -352,12 +352,52 @@ function createLegend(mymap, attributes){
         onAdd: function (mymap) {
             // create the control container with a particular class name
             var container = L.DomUtil.create('div', 'legend-control-container');
+            //$(container).append('div id="overlay-legend" height="100px">');
+            /*var svg2 = '<svg id="overlay-legend" width="300px" height="100px">';
+            var circles2={
+            	r1:20,
+            	r2:20
+            };
+            for (var circle2 in circles2){
+            	svg2 += '<circle class="legend-circle" id="' + circle2 + 
+            	'" fill="#2E86C1" fill-opacity="0.55" stroke="#2471A3" cx="80"/>';
+            	//text string includes the location 
+            	svg2+= '<text id="'+circle2+'-text" x="175" y="' +(circles2[circle2]+55)+'"></text>';
+            };
+            svg2 += "</svg>";
+            $(container).append(svg2);*/
+            //craete a image element to store and style the legend icon
+            var elem = document.createElement("img");
+			elem.setAttribute("src", "img/symbol1.png");
+			elem.setAttribute("height", "20");
+			elem.setAttribute("width", "20");
 
+			//append this element into the contianer
+			$(container).append(elem);
+
+			//craete a text element to store the legend text info
+			var txt1=document.createElement("span");
+			txt1.innerHTML='negative pop change 2010-2016';
+			$(container).append(txt1);
+			//craete a text element to store the legend text info
+			var txt2=document.createElement("span");
+			txt2.innerHTML='positive pop change 2010-2016<br>';
+			$(container).append(txt2);
+
+			//craete a image element to store and style the legend icon
+			var elem2 = document.createElement("img");
+			elem2.setAttribute("src", "img/symbol2.png");
+			elem2.setAttribute("height", "20");
+			elem2.setAttribute("width", "20");
+			elem2.style.top="1000px";
+			$(container).append(elem2);
+
+				
             //add temporal legend div to container
             $(container).append('<div id="temporal-legend">');
 
             //Step 1: start attribute legend svg string
-            var svg = '<svg id="attribute-legend" width="300px" height="250px">';
+            var svg = '<svg id="attribute-legend" width="300px" height="190px">';
             //var circles=getCircleValues(mymap,attributes[0]);
             //array of circle names to base loop on
         	var circles = {
@@ -365,14 +405,15 @@ function createLegend(mymap, attributes){
         		mean:40,
         		min:60
         	};
-
+        	var i=0;
         	// loop to add each circle and text to svg string
         	for (var circle in circles){
                 //circle svg string describing class and styles and location
             	svg += '<circle class="legend-circle" id="' + circle + 
             	'" fill="#2E86C1" fill-opacity="0.55" stroke="#2471A3" cx="80"/>';
             	//text string includes the location 
-            	svg+= '<text id="'+circle+'-text" x="175" y="' +(circles[circle]+55)+'"></text>';
+            	svg+= '<text id="'+circle+'-text" x="175" y="' +(circles[circle]+35+i)+'"></text>';
+            	i+=20;
 
             	console.log(circles[circle]);
         	};
@@ -436,7 +477,7 @@ function updateLegend(mymap,attribute){
 		console.log(radius);
 		//assign a vertical location and radius to the circles in attribute legend
 		$('#'+key).attr({
-			cy: 158-radius,
+			cy: 156-radius,
 			r:radius
 		});
 		$('#'+key+'-text').text(Math.round(circleValues[key]*100)/100+" thousand");
